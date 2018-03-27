@@ -1,3 +1,12 @@
+/*
+ *
+ * Used materials:
+ * * http://opik.fyysika.ee/index.php/book/section/4592
+ * * https://en.wikipedia.org/wiki/Quaternion
+ * * https://www.youtube.com/watch?v=jlskQDR8-bY
+ * * http://enos.itcollege.ee/~jpoial/algorithms/examples/Num.java
+ */
+
 import java.util.*;
 
 /** Quaternions. Basic operations. */
@@ -11,36 +20,44 @@ public class Quaternion {
     * @param c imaginary part j
     * @param d imaginary part k
     */
+   private double rPart;
+   private double iPart;
+   private double jPart;
+   private double kPart;
    public Quaternion (double a, double b, double c, double d) {
       // TODO!!! Your constructor here!
+      this.rPart = a;
+      this.iPart = b;
+      this.jPart = c;
+      this.kPart = d;
    }
 
    /** Real part of the quaternion.
     * @return real part
     */
    public double getRpart() {
-      return 0.; // TODO!!!
+      return this.rPart; // TODO!!!
    }
 
    /** Imaginary part i of the quaternion. 
     * @return imaginary part i
     */
    public double getIpart() {
-      return 0.; // TODO!!!
+      return this.iPart; // TODO!!!
    }
 
    /** Imaginary part j of the quaternion. 
     * @return imaginary part j
     */
    public double getJpart() {
-      return 0.; // TODO!!!
+      return this.jPart; // TODO!!!
    }
 
    /** Imaginary part k of the quaternion. 
     * @return imaginary part k
     */
    public double getKpart() {
-      return 0.; // TODO!!!
+      return this.kPart; // TODO!!!
    }
 
    /** Conversion of the quaternion to the string.
@@ -50,7 +67,8 @@ public class Quaternion {
     */
    @Override
    public String toString() {
-      return ""; // TODO!!!
+      return String.valueOf(rPart) + "+" + String.valueOf(iPart) + "i+" + String.valueOf(jPart) + "j+"
+              + String.valueOf(kPart) + "k"; // TODO!!!
    }
 
    /** Conversion from the string to the quaternion. 
@@ -61,7 +79,20 @@ public class Quaternion {
     * @return a quaternion represented by string s
     */
    public static Quaternion valueOf (String s) {
-      return null; // TODO!!!
+      String[] stringSplit = s.split("[+]++");
+      ArrayList<Double> queternionValues;
+      queternionValues = new ArrayList<>();
+      for (String item: stringSplit) {
+         String cleanItem = item.replaceAll("[ijk]","");
+         double value = Double.parseDouble(cleanItem);
+         queternionValues.add(value);
+      }
+      double r = queternionValues.get(0);
+      double i = queternionValues.get(1);
+      double j = queternionValues.get(2);
+      double k = queternionValues.get(3);
+      Quaternion a = new Quaternion(r, i, j, k);
+      return a; // TODO!!!
    }
 
    /** Clone of the quaternion.
@@ -69,7 +100,9 @@ public class Quaternion {
     */
    @Override
    public Object clone() throws CloneNotSupportedException {
-      return null; // TODO!!!
+      String string = this.toString();
+      Quaternion q = Quaternion.valueOf(string);
+      return q; // TODO!!!
    }
 
    /** Test whether the quaternion is zero. 
